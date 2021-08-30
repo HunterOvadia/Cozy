@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"M:\\_GameDev\\Cozy\\Cozy\\Source\\Cozy\\Cozy.Build.cs",
+		"M:\\_GameDev\\Cozy\\Cozy\\Source\\Cozy.Target.cs",
+		"M:\\_GameDev\\Cozy\\Cozy\\Source\\CozyEditor.Target.cs"
+	],
+	"EngineVersion": "5.0.0"
+}

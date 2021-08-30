@@ -1,0 +1,9 @@
+M:\_GameDev\Cozy\Cozy\Intermediate\Build\Win64\UnrealEditor\Development\Cozy\Definitions.Cozy.h
+M:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+M:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+M:\_GameDev\Cozy\Cozy\Source\Cozy/CozyGameMode.h
+M:\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
+M:\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
+M:\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\ServerStatReplicator.generated.h
+M:\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\GameModeBase.generated.h
+M:\_GameDev\Cozy\Cozy\Intermediate\Build\Win64\UnrealEditor\Inc\Cozy\CozyGameMode.generated.h

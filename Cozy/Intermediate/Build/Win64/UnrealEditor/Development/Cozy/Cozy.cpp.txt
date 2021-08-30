@@ -1,0 +1,2 @@
+M:\_GameDev\Cozy\Cozy\Intermediate\Build\Win64\UnrealEditor\Development\Cozy\Definitions.Cozy.h
+M:\_GameDev\Cozy\Cozy\Source\Cozy\Cozy.h

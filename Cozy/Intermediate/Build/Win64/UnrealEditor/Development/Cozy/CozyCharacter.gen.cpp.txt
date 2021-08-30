@@ -1,0 +1,11 @@
+M:\_GameDev\Cozy\Cozy\Intermediate\Build\Win64\UnrealEditor\Development\Cozy\Definitions.Cozy.h
+M:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+M:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+M:\_GameDev\Cozy\Cozy\Source\Cozy/CozyCharacter.h
+M:\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/Character.h
+M:\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/CharacterMovementReplication.h
+M:\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\CharacterMovementReplication.generated.h
+M:\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/RootMotionSource.h
+M:\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\RootMotionSource.generated.h
+M:\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\Character.generated.h
+M:\_GameDev\Cozy\Cozy\Intermediate\Build\Win64\UnrealEditor\Inc\Cozy\CozyCharacter.generated.h

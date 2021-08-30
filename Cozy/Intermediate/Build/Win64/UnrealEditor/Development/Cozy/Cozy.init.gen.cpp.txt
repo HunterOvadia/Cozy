@@ -1,0 +1,3 @@
+M:\_GameDev\Cozy\Cozy\Intermediate\Build\Win64\UnrealEditor\Development\Cozy\Definitions.Cozy.h
+M:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+M:\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h

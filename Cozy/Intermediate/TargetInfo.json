@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Cozy",
+			"Path": "M:\\_GameDev\\Cozy\\Cozy\\Source\\Cozy.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "CozyEditor",
+			"Path": "M:\\_GameDev\\Cozy\\Cozy\\Source\\CozyEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
