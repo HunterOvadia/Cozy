@@ -54,17 +54,17 @@ void ACozyCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ACozyCharacter::LookUpAtRate);
 }
 
-void ACozyCharacter::TurnAtRate(float Rate)
+void ACozyCharacter::TurnAtRate(const float Rate)
 {
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-void ACozyCharacter::LookUpAtRate(float Rate)
+void ACozyCharacter::LookUpAtRate(const float Rate)
 {
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-void ACozyCharacter::MoveForward(float Value)
+void ACozyCharacter::MoveForward(const float Value)
 {
 	if ((Controller != nullptr) && (Value != 0.0f))
 	{
@@ -76,7 +76,7 @@ void ACozyCharacter::MoveForward(float Value)
 	}
 }
 
-void ACozyCharacter::MoveRight(float Value)
+void ACozyCharacter::MoveRight(const float Value)
 {
 	if ((Controller != nullptr) && (Value != 0.0f))
 	{
