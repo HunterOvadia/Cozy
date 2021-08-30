@@ -1,7 +1,7 @@
 #pragma once
-#include "CoreMinimal.h"
 #include "CozyItemData.h"
 #include "CozyItemStorageComponent.generated.h"
+
 
 USTRUCT(BlueprintType)
 struct COZY_API FCozyStorageItemData
@@ -15,6 +15,10 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int32 Quantity;
 };
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemAddedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemRemovedDelegate);
+
 
 UCLASS(BlueprintType)
 class COZY_API UCozyItemStorageComponent : public UActorComponent
@@ -32,7 +36,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void RemoveItem(const FName& ItemID, int32 Quantity = 1);
-	
+
+public:
+	FOnItemAddedDelegate OnItemAdded;
+	FOnItemRemovedDelegate OnItemRemoved;
 	
 private:
 	UPROPERTY()

@@ -1,4 +1,6 @@
 #include "CozyCharacter.h"
+
+#include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -48,12 +50,26 @@ void ACozyCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Inventory", IE_Pressed, this, &ACozyCharacter::ToggleInventory);
+
+	
 	PlayerInputComponent->BindAxis("MoveForward", this, &ACozyCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ACozyCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("TurnRate", this, &ACozyCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ACozyCharacter::LookUpAtRate);
+}
+
+void ACozyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	MainPlayerWidget = CreateWidget<UCozyPlayerMainWidget>(GetGameInstance(), MainWidgetClass);
+	if(MainPlayerWidget != nullptr)
+	{
+		MainPlayerWidget->AddToViewport();
+	}
 }
 
 void ACozyCharacter::TurnAtRate(const float Rate)
@@ -64,6 +80,25 @@ void ACozyCharacter::TurnAtRate(const float Rate)
 void ACozyCharacter::LookUpAtRate(const float Rate)
 {
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void ACozyCharacter::ToggleInventory()
+{
+	if(MainPlayerWidget != nullptr)
+	{
+		if(UCozyStorageWidget* Storage = MainPlayerWidget->StorageWidget)
+		{
+			if(Storage->GetVisibility() == ESlateVisibility::Collapsed)
+			{
+				Storage->InitializeStorage(InventoryStorage);
+				Storage->SetVisibility(ESlateVisibility::Visible);
+			}
+			else
+			{
+				Storage->SetVisibility(ESlateVisibility::Collapsed);
+			}
+		}
+	}
 }
 
 void ACozyCharacter::MoveForward(const float Value)

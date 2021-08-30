@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Items/CozyItemStorageComponent.h"
+#include "UI/CozyPlayerMainWidget.h"
 #include "CozyCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -16,11 +17,16 @@ public:
 
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	virtual void BeginPlay() override;
+	
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void TurnAtRate(float Rate);
 	void LookUpAtRate(float Rate);
+
+private:
+	UFUNCTION()
+	void ToggleInventory();
 	
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -29,11 +35,17 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UCozyPlayerMainWidget> MainWidgetClass;
+	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCozyItemStorageComponent* InventoryStorage;
+
+	UPROPERTY(BlueprintReadWrite)	
+	UCozyPlayerMainWidget* MainPlayerWidget;
 };
 

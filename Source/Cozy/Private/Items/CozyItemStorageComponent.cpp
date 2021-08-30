@@ -27,6 +27,8 @@ void UCozyItemStorageComponent::AddItem(const FName& ItemID, const int32 Quantit
     {
         Storage[ItemID].Quantity += Quantity;
     }
+    
+    OnItemAdded.Broadcast();
 }
 
 void UCozyItemStorageComponent::RemoveItem(const FName& ItemID, int32 Quantity)
@@ -49,4 +51,6 @@ void UCozyItemStorageComponent::RemoveItem(const FName& ItemID, int32 Quantity)
             Storage.Remove(ItemID);
         }
     }
+    
+    OnItemRemoved.Broadcast();    
 }
