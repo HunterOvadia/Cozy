@@ -34,6 +34,8 @@ ACozyCharacter::ACozyCharacter()
 		MyMesh->SetOwnerNoSee(true);
 	}
 
+	InventoryStorage = CreateDefaultSubobject<UCozyItemStorageComponent>(TEXT("Inventory"));
+	
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 	bUseControllerRotationPitch = false;

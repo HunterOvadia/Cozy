@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Items/CozyItemStorageComponent.h"
 #include "CozyCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -10,8 +11,9 @@ class ACozyCharacter : public ACharacter
 	
 public:
 	ACozyCharacter();
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-	
+	class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	UCozyItemStorageComponent* GetInventory() const { return InventoryStorage; }
+
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -30,7 +32,8 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
-
-
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UCozyItemStorageComponent* InventoryStorage;
 };
 
