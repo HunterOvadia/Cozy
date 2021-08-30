@@ -37,7 +37,7 @@ ACozyCharacter::ACozyCharacter()
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = false;
+	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
 }
 
