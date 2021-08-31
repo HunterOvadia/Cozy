@@ -65,7 +65,7 @@ void ACozyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MainPlayerWidget = CreateWidget<UCozyPlayerMainWidget>(GetGameInstance(), MainWidgetClass);
+	MainPlayerWidget = CreateWidget<UCozyPlayerMainWidget>(GetWorld(), MainWidgetClass);
 	if(MainPlayerWidget != nullptr)
 	{
 		MainPlayerWidget->AddToViewport();
@@ -96,6 +96,7 @@ void ACozyCharacter::ToggleInventory()
 			else
 			{
 				Storage->SetVisibility(ESlateVisibility::Collapsed);
+				Storage->ResetStorage();
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 #pragma once
-#include "CoreMinimal.h"
+
+#include "CozyStorageWidgetSlot.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Components/UniformGridPanel.h"
@@ -13,14 +14,21 @@ class COZY_API UCozyStorageWidget : public UUserWidget
 	
 public:
 	void InitializeStorage(UCozyItemStorageComponent* InStorageComponent);
+	void ResetStorage();
 	
 public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* StorageNameText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock* StorageAvailabilityText;
+	
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UUniformGridPanel* StorageGrid;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UCozyStorageWidgetSlot> WidgetSlotClass;
+	
 private:
 	UPROPERTY(Transient)
 	UCozyItemStorageComponent* StorageComponent;

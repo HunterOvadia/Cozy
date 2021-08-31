@@ -40,6 +40,14 @@ public:
 public:
 	FOnItemAddedDelegate OnItemAdded;
 	FOnItemRemovedDelegate OnItemRemoved;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
+	int32 MaxSlots;
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	int32 UsedSlots;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
+	int32 SlotsPerRow;
 	
 private:
 	UPROPERTY()

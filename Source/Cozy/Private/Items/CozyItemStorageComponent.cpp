@@ -4,6 +4,9 @@
 
 UCozyItemStorageComponent::UCozyItemStorageComponent()
 {
+    MaxSlots = 49;
+    UsedSlots = 0;
+    SlotsPerRow = 7;
 }
 
 void UCozyItemStorageComponent::AddItem(const FName& ItemID, const int32 Quantity)
@@ -15,13 +18,14 @@ void UCozyItemStorageComponent::AddItem(const FName& ItemID, const int32 Quantit
     }
 
     const FCozyItemData& Item = GI->GetItem(ItemID);
-    if(!Storage.Contains(ItemID))
+    if(!Storage.Contains(ItemID) && UsedSlots < MaxSlots)
     {
         FCozyStorageItemData ItemData;
         ItemData.ItemData = Item;
         ItemData.Quantity = Quantity;
         
         Storage.Add(ItemID, ItemData);
+        ++UsedSlots;
     }
     else
     {
@@ -49,6 +53,7 @@ void UCozyItemStorageComponent::RemoveItem(const FName& ItemID, int32 Quantity)
         else
         {
             Storage.Remove(ItemID);
+            --UsedSlots;
         }
     }
     
