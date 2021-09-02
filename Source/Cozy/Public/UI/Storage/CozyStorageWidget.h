@@ -14,7 +14,13 @@ class COZY_API UCozyStorageWidget : public UUserWidget
 	
 public:
 	void InitializeStorage(UCozyItemStorageComponent* InStorageComponent);
-	void ResetStorage();
+
+	UFUNCTION()
+	void OnItemUpdated(const int32 Index);
+
+
+private:
+	void UpdateAvailabilityText() const;
 	
 public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))

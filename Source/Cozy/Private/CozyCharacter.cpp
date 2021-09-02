@@ -51,7 +51,6 @@ void ACozyCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("Inventory", IE_Pressed, this, &ACozyCharacter::ToggleInventory);
-
 	
 	PlayerInputComponent->BindAxis("MoveForward", this, &ACozyCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ACozyCharacter::MoveRight);
@@ -65,10 +64,24 @@ void ACozyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if(InventoryStorage != nullptr)
+	{
+		TArray<FCozyStorageItemData>& Storage = InventoryStorage->GetStorage();
+		Storage.SetNum(InventoryStorage->MaxSlots);
+		for(int Index = 0; Index < InventoryStorage->MaxSlots; ++Index)
+		{
+			Storage[Index] = FCozyStorageItemData();
+		}
+	}
+	
 	MainPlayerWidget = CreateWidget<UCozyPlayerMainWidget>(GetWorld(), MainWidgetClass);
 	if(MainPlayerWidget != nullptr)
 	{
 		MainPlayerWidget->AddToViewport();
+		if(UCozyStorageWidget* StorageWidget = MainPlayerWidget->StorageWidget)
+		{
+			StorageWidget->InitializeStorage(InventoryStorage);
+		}
 	}
 }
 
@@ -86,17 +99,15 @@ void ACozyCharacter::ToggleInventory()
 {
 	if(MainPlayerWidget != nullptr)
 	{
-		if(UCozyStorageWidget* Storage = MainPlayerWidget->StorageWidget)
+		if(UCozyStorageWidget* StorageWidget = MainPlayerWidget->StorageWidget)
 		{
-			if(Storage->GetVisibility() == ESlateVisibility::Collapsed)
+			if(StorageWidget->GetVisibility() == ESlateVisibility::Collapsed)
 			{
-				Storage->InitializeStorage(InventoryStorage);
-				Storage->SetVisibility(ESlateVisibility::Visible);
+				StorageWidget->SetVisibility(ESlateVisibility::Visible);
 			}
 			else
 			{
-				Storage->SetVisibility(ESlateVisibility::Collapsed);
-				Storage->ResetStorage();
+				StorageWidget->SetVisibility(ESlateVisibility::Collapsed);
 			}
 		}
 	}

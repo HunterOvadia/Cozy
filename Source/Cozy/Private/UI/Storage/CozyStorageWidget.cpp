@@ -6,6 +6,8 @@ void UCozyStorageWidget::InitializeStorage(UCozyItemStorageComponent* InStorageC
     StorageComponent = InStorageComponent;
     if(StorageComponent != nullptr)
     {
+        StorageComponent->OnItemUpdated.AddUniqueDynamic(this, &UCozyStorageWidget::OnItemUpdated);
+
         AActor* StorageOwner = StorageComponent->GetOwner();
         if(StorageOwner != nullptr && StorageNameText != nullptr)
         {
@@ -13,14 +15,7 @@ void UCozyStorageWidget::InitializeStorage(UCozyItemStorageComponent* InStorageC
             const FText StorageName = FText::AsCultureInvariant(StorageNameString);
             StorageNameText->SetText(StorageName);
         }
-
-        if(StorageAvailabilityText != nullptr)
-        {
-            const FString AvailableTextString = FString::Printf(TEXT("%d/%d"), StorageComponent->UsedSlots, StorageComponent->MaxSlots);
-            const FText AvailableText = FText::AsCultureInvariant(AvailableTextString);
-            StorageAvailabilityText->SetText(AvailableText);
-        }
-
+        
         if(StorageGrid != nullptr)
         {
             int CurrentColumn = 0;
@@ -35,18 +30,44 @@ void UCozyStorageWidget::InitializeStorage(UCozyItemStorageComponent* InStorageC
                     {
                         ++CurrentColumn;
                     }
+
+                    TArray<FCozyStorageItemData>& Storage = StorageComponent->GetStorage();
+                    if(Storage.IsValidIndex(Index))
+                    {
+                        NewSlot->SetItemData(Storage[Index]);
+                    }
                     
                     StorageGrid->AddChildToUniformGrid(NewSlot, CurrentColumn, CurrentRow);
                 }
             }
         }
     }
+
+    UpdateAvailabilityText();
 }
 
-void UCozyStorageWidget::ResetStorage()
+void UCozyStorageWidget::OnItemUpdated(const int32 Index)
 {
-    if(StorageGrid != nullptr)
+    TArray<FCozyStorageItemData>& Storage = StorageComponent->GetStorage();
+    if(Storage.IsValidIndex(Index))
     {
-        StorageGrid->ClearChildren();
+        UWidget* SlotToUpdate = StorageGrid->GetChildAt(Index);
+        if(UCozyStorageWidgetSlot* SlotToUpdateWidget = Cast<UCozyStorageWidgetSlot>(SlotToUpdate))
+        {
+            SlotToUpdateWidget->SetItemData(Storage[Index]);
+        }
+    }
+
+    UpdateAvailabilityText();
+}
+
+
+void UCozyStorageWidget::UpdateAvailabilityText() const
+{
+    if(StorageAvailabilityText != nullptr && StorageComponent != nullptr)
+    {
+        const FString AvailableTextString = FString::Printf(TEXT("%d/%d"), StorageComponent->UsedSlots, StorageComponent->MaxSlots);
+        const FText AvailableText = FText::AsCultureInvariant(AvailableTextString);
+        StorageAvailabilityText->SetText(AvailableText);
     }
 }

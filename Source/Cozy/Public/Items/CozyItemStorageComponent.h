@@ -8,7 +8,17 @@ struct COZY_API FCozyStorageItemData
 {
 	GENERATED_BODY()
 
-public:	
+public:
+	FCozyStorageItemData()
+	{
+		ItemID = "";
+		ItemData = FCozyItemData();
+		Quantity = 0;
+	}
+public:
+	UPROPERTY(BlueprintReadWrite)
+	FName ItemID;
+	
 	UPROPERTY(BlueprintReadWrite)
 	FCozyItemData ItemData;
 
@@ -16,8 +26,7 @@ public:
 	int32 Quantity;
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemAddedDelegate);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemRemovedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStorageItemUpdated, const int32, Index);
 
 
 UCLASS(BlueprintType)
@@ -27,9 +36,9 @@ class COZY_API UCozyItemStorageComponent : public UActorComponent
 	
 public:
 	UCozyItemStorageComponent();
-
+	
 	UFUNCTION(BlueprintCallable)
-	const TMap<FName, FCozyStorageItemData>& GetStorage() const { return Storage; }
+	TArray<FCozyStorageItemData>& GetStorage() { return Storage; }
 
 	UFUNCTION(BlueprintCallable)
 	void AddItem(const FName& ItemID, int32 Quantity = 1);
@@ -38,9 +47,9 @@ public:
 	void RemoveItem(const FName& ItemID, int32 Quantity = 1);
 
 public:
-	FOnItemAddedDelegate OnItemAdded;
-	FOnItemRemovedDelegate OnItemRemoved;
-
+	UPROPERTY()
+	FOnStorageItemUpdated OnItemUpdated;
+	
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	int32 MaxSlots;
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
@@ -51,5 +60,5 @@ public:
 	
 private:
 	UPROPERTY()
-	TMap<FName, FCozyStorageItemData> Storage;
+	TArray<FCozyStorageItemData> Storage;
 };
